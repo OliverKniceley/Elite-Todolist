@@ -55,20 +55,7 @@ class Task {
 
     //methods
     toString() {
-        let output = "";
-
-        let name =      this.getName();
-        let desc =      this.getDesc();
-        let status =    this.getStatus();
-        let position =  this.getPosition();
-        let completed = this.isFinished();
-
-        output += name + ": \n";
-        output += desc + "\n";
-        output += "Priority: " + position + "\n";
-        output += "Status: " + status + "\n";
-        output += "Finished? " + completed;
-        return output;
+        return `Name: ${this.name}\n Description: ${this.description}\n Status: ${this.status}\n Position: ${this.position}\n Is Finished: ${this.finished}`;
     }
 
     
