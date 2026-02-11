@@ -49,10 +49,28 @@ class List{
         //todo
     }
 
+    //swap the first index with the second index
+    swapIdex(firstIndex, secondIndex){
+        let temp = this.listStorage[firstIndex]
+        this.listStorage[firstIndex] = this.listStorage[secondIndex]
+        this.listStorage[secondIndex] = temp;
+    }
+
     // this will swap the tasks at index and index + 1
     moveDown(index){
         // do a safety check to avoid index out of range
-        // TODO
+        if(index >= listStorage - 1){
+            return;
+        }
+        this.swapIdex(index, index + 1);
+    }
+
+        // this will swap the tasks at index and index - 1
+    moveUp(index){
+        if(index <= 0){
+            return;
+        }
+        this.swapIdex(index, index - 1);
     }
 
     moveTask(list, task){
@@ -60,15 +78,10 @@ class List{
         this.removeTask(task);
     }
 
-    // this will swap the tasks at index and index - 1
-    moveUp(index){
-        // do a safety check to avoid index out of range
-        // TODO
-    }
+
 
     toString(){
         let output = `List: ${this.name}\n`;
-
 
         for(let i = 0; i < this.listStorage.length; i++){
             output += this.listStorage[i].toString();
@@ -77,16 +90,15 @@ class List{
             }
         }
 
-
         return output;
     }
 
 
 
 
-    //will need worked on a bit when we get mutiple lists
-    pushToLocalStrorage(listID){
-        //uploads the obj it to local storage under the key name of what ebver is stored in listID
+    //will need worked on a bit when we get multiple lists
+    pushToLocalStorage(listID){
+        //uploads the obj it to local storage under the key name of what ever is stored in listID
         const stringObj = JSON.stringify(this)
         localStorage.setItem(listID, stringObj);
     }
@@ -97,17 +109,21 @@ class List{
         const data = localStorage.getItem(listId);
 
 
-        //fail safe to check if there is actully data
-        if(data === null) return;
+        //fail safe to check if there is data
+        if(data === null){
+            return;
+        }
 
         //converts data back
         const parsedData = JSON.parse(data);
 
-        //sets the name of the list to the name saved in local storger
+        //sets the name of the list to the name saved in local Storage
         this.name =  parsedData.name;
 
-        //asinges the objests to a class so it regains its methods
-        this.listStorage = parsed.listStorage.map(task => Task.fromJSON(task));
+        //asinged the objs to a class so it regains its methods
+        if (parsedData.listStorage) {
+            this.listStorage = parsedData.listStorage.map(item => Task.fromJSON(item));
+        }
     }
 
     show(){
