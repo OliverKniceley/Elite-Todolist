@@ -67,11 +67,47 @@ class List{
     }
 
     toString(){
-        //todo
+        let output = `List: ${this.name}\n`;
+
+
+        for(let i = 0; i < this.listStorage.length; i++){
+            output += this.listStorage[i].toString();
+            if(i < this.listStorage.length - 1){
+                output += "\n";
+            }
+        }
+
+
+        return output;
     }
 
-    getFromLocalStorage(){
-        //todo
+
+
+
+    //will need worked on a bit when we get mutiple lists
+    pushToLocalStrorage(listID){
+        //uploads the obj it to local storage under the key name of what ebver is stored in listID
+        const stringObj = JSON.stringify(this)
+        localStorage.setItem(listID, stringObj);
+    }
+
+
+    getFromLocalStorage(listId){
+        //gets data
+        const data = localStorage.getItem(listId);
+
+
+        //fail safe to check if there is actully data
+        if(data === null) return;
+
+        //converts data back
+        const parsedData = JSON.parse(data);
+
+        //sets the name of the list to the name saved in local storger
+        this.name =  parsedData.name;
+
+        //asinges the objests to a class so it regains its methods
+        this.listStorage = parsed.listStorage.map(task => Task.fromJSON(task));
     }
 
     show(){
