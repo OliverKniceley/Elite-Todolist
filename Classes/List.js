@@ -114,7 +114,7 @@ class List{
         // box
         rect(x, 10, 400, 1000);
 
-        // green box which represents mark as done button maybe?
+        // green box which represents uh some button perhaps
         fill(0, 150, 0);
         rect(x + 10, 20, 20, 20)
         fill(255);
