@@ -5,6 +5,10 @@ let x = 10;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  let list1 = new List();
+  list1.addTask(new Task("Apples", "Get 2 Honeycrisp apples"));
+  list1.addTask(new Task("Bananas", "3 or 4 green bananas"));
+  listArray.push(list1);
 }
 
 
