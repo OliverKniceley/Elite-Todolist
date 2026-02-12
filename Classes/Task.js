@@ -58,6 +58,30 @@ class Task {
         return `Name: ${this.name}\n Description: ${this.description}\n Status: ${this.status}\n Position: ${this.position}\n Is Finished: ${this.finished}`;
     }
 
+    show(x, y) {
+
+        // main box
+        rect(x, y, 380, 120);
+
+        // green box which represents mark as done button maybe?
+        fill(0, 150, 0);
+        rect(x + 10, y + 10, 20, 20)
+        fill(255);
+
+        // red box for delete button maybe?
+        fill(150, 0, 0);
+        rect(x + 350, y + 10, 20, 20)
+        fill(255);
+
+        // text slop
+        textAlign(CENTER, CENTER);
+        fill(0);
+        text(this.name, x + 190, y + 30);
+        text(this.description, x + 190, y + 60);
+        fill(255, 0, 0);
+        text(this.status, x + 190, y + 90);
+        fill(255);
+    }
 
     static fromJSON(data) {
         return new Task(

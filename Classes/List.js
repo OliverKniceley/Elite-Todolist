@@ -130,8 +130,32 @@ class List{
         }
     }
 
-    show(){
-        //todo
+    show(x) {
+        // box
+        rect(x, 10, 400, 1000);
+
+        // green box which represents uh some button perhaps
+        fill(0, 150, 0);
+        rect(x + 10, 20, 20, 20)
+        fill(255);
+
+        // red box for delete button maybe?
+        fill(150, 0, 0);
+        rect(x + 370, 20, 20, 20)
+        fill(255);
+
+        // title
+        textAlign(CENTER, CENTER);
+        fill(0);
+        text(this.name, x + 200, 30);
+        fill(255);
+
+        // show all tasks in this list
+        let y = 70;
+        for (const each of this.listStorage) {
+            each.show(x + 10, y);
+            y += 130
+        }
     }
 
 }
