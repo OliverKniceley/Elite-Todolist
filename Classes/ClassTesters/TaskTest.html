@@ -8,28 +8,87 @@
     Task Tester
     <script src="../Task.js"></script>
     <script>
-        function WriteAssertMsg(expected, actual) {
-            let assertMsg = "Assertion failed, expected " + expected + " but got " + actual + "!"
+        function AssertEqual(expected, actual) {
+            let assertMsg = "Expected " + expected + ", got " + actual
 
-            return assertMsg
+            let condition = expected == actual
+            
+            if (!condition) {
+                console.warn("❌ Assertion failed: " + assertMsg)
+                return
+            }
+            console.log("✅ Assertion Passed: " + assertMsg) //comment this out if its useless or something
         }
+
         function TestBlank() {
             let newTask = new Task()
-            console.assert(newTask.getName(), WriteAssertMsg("New Task", newTask.getName())) //i feel like the dj toenail of JS istg
-            console.assert(newTask.getDesc(), WriteAssertMsg("", newTask.getDesc()))
-            console.assert(newTask.getStatus(), WriteAssertMsg("Todo", newTask.getStatus()))
-        }
+            let tests = { //needlessly complicating this stuff
+                    Actual: {
+                        Name:   newTask.getName(),
+                        Desc:   newTask.getDesc(),
+                        Status: newTask.getStatus(),
+                    },
+                    Expected: {
+                        Name:   "New Task",
+                        Desc:   "",
+                        Status: "Todo"
+                    }
+                }
+                for(let testName in tests.Actual) {
+                    let actual = tests.Actual[testName]
+                    let expected = tests.Expected[testName]
+                    AssertEqual(expected, actual)
+                }
+            }
 
-        function TestALot() {
-            let newTask = new Task("Code Tests", "Code tests for the Task class", "Doing", 9999999999)
-            console.assert(newTask.getName(), WriteAssertMsg("Code Tests", newTask.getName()))
-            console.assert(newTask.getDesc(), WriteAssertMsg("Code tests for the Task class", newTask.getDesc()))
-            console.assert(newTask.getStatus(), WriteAssertMsg("Doing", newTask.getStatus()))
-            console.assert(newTask.getPosition(), WriteAssertMsg(9999999999, newTask.getPosition()))
-        }
+            function TestALot() {
+                let newTask = new Task("Code Tests", "Code tests for the Task class", "Doing", 9999999999)
 
-        TestBlank();
-        TestALot();
+                let tests = {
+                    Actual: {
+                        Name:     newTask.getName(),
+                        Desc:     newTask.getDesc(),
+                        Status:   newTask.getStatus(),
+                        Position: newTask.getPosition()
+                    },
+                    Expected: {
+                        Name:    "Code Tests",
+                        Desc:    "Code tests for the Task class",
+                        Status:  "Doing",
+                        Position: 9999999999
+                    }
+                }
+
+                for(let testName in tests.Actual) {
+                    let actual = tests.Actual[testName]
+                    let expected = tests.Expected[testName]
+                    AssertEqual(expected, actual)
+                }
+            }
+
+            function TestFail() {
+                let newTask = new Task("FAIL", "FAIL DESCRIPTION", "Finished")
+                let tests = {
+                        Actual: {
+                            Name:   newTask.getName(),
+                            Desc:   newTask.getDesc(),
+                            Status: newTask.getStatus(),
+                        },
+                        Expected: {
+                            Name:   "New Task",
+                            Desc:   "",
+                            Status: "Completed"
+                        }
+                    }
+                    for(let testName in tests.Actual) {
+                        let actual = tests.Actual[testName]
+                        let expected = tests.Expected[testName]
+                        AssertEqual(expected, actual)
+                    }
+            }
+        TestBlank()
+        TestALot()
+        TestFail()
     </script>
 </body>
 
