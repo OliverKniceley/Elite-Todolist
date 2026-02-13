@@ -1,19 +1,34 @@
 const TASK_STATES = {
     TODO: "Todo",
     ARCHIVED: "Archived",
-    DONE: "Done"
+    DONE: "Done",
+    DELETED: "Deleted"
 }
 
-
-const DEFAULT_TASK_NAME =   "New Task";
+//defaults for instance vars
+const DEFAULT_TASK_NAME   = "New Task";
 const DEFAULT_DESCRIPTION = "";
-const DEFAULT_STATUS =      TASK_STATES.TODO;
-const DEFAULT_POSITION =    0;
-const DEFAULT_FINISHED =    false;
+const DEFAULT_STATUS      = TASK_STATES.TODO;
+const DEFAULT_POSITION    = 0;
+const DEFAULT_FINISHED    = false;
+
+//confirm button settings (offsets so far)
+const CONFIRM_X_OFFSET    = 10
+const CONFIRM_Y_OFFSET    = 10
+
+//cancel button settings (offsets so far)
+const CANCEL_X_OFFSET     = 350
+const CANCEL_Y_OFFSET     = 10
+
+//text settings
+const TEXT_X_OFFSET       = 190
+const TEXT_X_PADDING      = 0   //not used yet
+const TEXT_Y_OFFSET       = 0   //not used yet
+const TEXT_Y_PADDING      = 30
 
 class Task {
     constructor(name, desc, status, position) { 
-        this.name =        name     || DEFAULT_TASK_NAME;
+        this.name        = name     || DEFAULT_TASK_NAME;
         this.description = desc     || DEFAULT_DESCRIPTION;
         this.status =      status   || DEFAULT_STATUS;
         this.position =    position || DEFAULT_POSITION;
@@ -36,11 +51,11 @@ class Task {
     getPosition() { return this.position}
     isFinished()  { return this.finished }
 
-    setName(newName)       { this.name =        newName   || DEFAULT_TASK_NAME }
+    setName(newName)       { this.name        = newName   || DEFAULT_TASK_NAME }
     setDesc(newDesc)       { this.description = newDesc   || DEFAULT_DESCRIPTION }
-    setStatus(newStatus)   { this.status =      newStatus || DEFAULT_STATUS }
-    setPosition(newPos)    { this.position =    newPos    || DEFAULT_POSITION }
-    setFinished(condition) { this.finished =    condition || DEFAULT_FINISHED }
+    setStatus(newStatus)   { this.status      = newStatus || DEFAULT_STATUS }
+    setPosition(newPos)    { this.position    = newPos    || DEFAULT_POSITION }
+    setFinished(condition) { this.finished    = condition || DEFAULT_FINISHED }
 
     //im not saying that this method should be in the list but it should definitely be in the list
     setArchived() {
@@ -51,6 +66,13 @@ class Task {
     setCompleted() {
         this.setStatus(TASK_STATES.DONE);
         this.setFinished(true);
+    }
+
+    //get the list class to remove this or something
+    delete() {
+        this.setName("Deleted Task")
+        this.setDesc("")
+        this.setStatus(TASK_STATES.DELETED)
     }
 
     //basically slides the position of the task up or down 1 spot (world record for fastest annihilation of the webapp)
@@ -65,7 +87,15 @@ class Task {
 
     //methods
     toString() {
-        return `Name: ${this.name}\n Description: ${this.description}\n Status: ${this.status}\n Position: ${this.position}\n Is Finished: ${this.finished}`;
+        let output = ""
+
+        output += `Name: ${this.name}\n`
+        output += `Description: ${this.description}\n`
+        output += `Status: ${this.status}\n`
+        output += `Position: ${this.position}\n`
+        output += `Is Finished: ${this.finished}`
+
+        return output;
     }
 
     deleteTaskButtons(){
@@ -111,10 +141,10 @@ class Task {
         // text slop
         textAlign(CENTER, CENTER);
         fill(0);
-        text(this.name, x + 190, y + 30);
-        text(this.description, x + 190, y + 60);
+        text(this.name, x + TEXT_X_OFFSET, y + TEXT_Y_PADDING);
+        text(this.description, x + TEXT_X_OFFSET, y + TEXT_Y_PADDING * 2);
         fill(255, 0, 0);
-        text(this.status, x + 190, y + 90);
+        text(this.status, x + TEXT_X_OFFSET, y + TEXT_Y_PADDING * 3);
         fill(255);
     }
 
@@ -128,10 +158,3 @@ class Task {
         );
     }
 }
-    
-
-
-
-
-    
-
