@@ -157,4 +157,15 @@ class Task {
             data.finished
         );
     }
+
+    
+    toJSON(){
+    return {
+        name: this.name,
+        description: this.description,
+        status: this.status,
+        position: this.position,
+        finished: this.finished
+    };
+}
 }
