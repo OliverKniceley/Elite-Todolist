@@ -69,15 +69,15 @@ function draw() {
 //   }
 // }
 
-// function refresh(){
-//   background(220);
-//   x = 10;
-//   if(listArray.length > 0){
-//     for (const each of listArray) {
+function refresh(){
+  background(220);
+  x = 10;
+  if(listArray.length > 0){
+    for (const each of listArray) {
       
-//       each.show(x ,false);
-//       x += 410
-//     }
-//   }
+      each.show(x ,false);
+      x += 410
+    }
+  }
 
-// }
+}
