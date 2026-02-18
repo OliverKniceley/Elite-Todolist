@@ -18,11 +18,25 @@ const NAME_SIZE           = 25
 const DESC_SIZE           = 16
 const STATUS_SIZE         = 16
 
-//colors, lots of colors (im making SURE const doesnt get deprecated)
-const NAME_COLOR          = { R: 0,   G: 0,   B: 0   }
-const DESC_COLOR          = { R: 0,   G: 0,   B: 0   }
-const STATUS_COLOR        = { R: 255, G: 0,   B: 0   }
-const WHY_IS_THIS_HERE    = { R: 255, G: 255, B: 255 }
+//text font
+const TEXT_FONT           = "Courier New" //TODO: change the font to something thats actually good (this is just one i picked randomly)
+
+//colors, lots of colors
+const BACKGROUND_COLOR    = new Color(255, 255, 255)
+const NAME_COLOR          = new Color(0,   0,   0)
+const DESC_COLOR          = new Color(100, 100, 100)
+const WHY_IS_THIS_HERE    = new Color(255, 255, 255)
+
+const STROKE_COLOR        = new Color(100, 230, 255)
+const TODO_COLOR          = new Color(255, 0,   0)
+const DOING_COLOR         = new Color(255, 255, 0)
+const DONE_COLOR          = new Color(0,   255, 0)
+
+const STATUS_COLORS       = {
+    Todo: TODO_COLOR,
+    Doing: DOING_COLOR,
+    Done: DONE_COLOR,
+}
 
 //confirm button settings (offsets so far)
 const CONFIRM_X_OFFSET    = 10
@@ -147,6 +161,8 @@ class Task {
     show(x, y) {
 
         // main box
+        strokeWeight(5)
+        stroke(STROKE_COLOR.getColor())
         rect(x, y, 380, 120, 10);
 
         // sets pos of buttons        
@@ -157,24 +173,26 @@ class Task {
         this.markTaskDoneButton.show();
         this.deleteTaskButton.show();
 
+        strokeWeight(0)
         // text slop
+        textFont(TEXT_FONT)
         //name
         textAlign(CENTER, CENTER);
-        fill(NAME_COLOR.R, NAME_COLOR.G, NAME_COLOR.B);
+        fill(NAME_COLOR.getColor());
         textSize(NAME_SIZE);
         text(this.name, x + TEXT_X_OFFSET, y + TEXT_Y_PADDING);
 
         //desc
-        fill(DESC_COLOR.R, DESC_COLOR.G, DESC_COLOR.B);
+        fill(DESC_COLOR.getColor());
         textSize(DESC_SIZE);
         text(this.description, x + TEXT_X_OFFSET, y + TEXT_Y_PADDING * 2);
 
         //status
-        fill(STATUS_COLOR.R, STATUS_COLOR.G, STATUS_COLOR.B);
+        fill(STATUS_COLORS[this.status].getColor() || new Color(0,0,0).getColor());
         textSize(STATUS_SIZE)
         text(this.status, x + TEXT_X_OFFSET, y + TEXT_Y_PADDING * 3);
 
-        fill(WHY_IS_THIS_HERE.R, WHY_IS_THIS_HERE.G, WHY_IS_THIS_HERE.B); //im confused on why were filling with white here lol (might be p5js jank)
+        fill(WHY_IS_THIS_HERE.getColor()); //im confused on why were filling with white here lol (might be p5js jank)
     }
 
     static fromJSON(data) {
