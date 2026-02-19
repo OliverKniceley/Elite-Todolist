@@ -112,6 +112,7 @@ class List{
     buttonPressedDeleteList(){
         this.deleteListButtons()
         this.deleteTaskButtons()
+        localStorage.clear();
         listArray.splice(listArray.indexOf(this), listArray.indexOf(this)>= 0 ? 1 : 0);
         refresh();
         saveAllLists();
