@@ -65,7 +65,7 @@ class Task {
         this.finished    =             DEFAULT_FINISHED;
         this.Id          =             GenerateId()
 
-        this.markTaskDoneButton = createButton(`Mark Done`);
+        this.markTask   vhbDoneButton = createButton(`Mark Done`);
         this.markTaskDoneButton.hide();
         this.markTaskDoneButton.mousePressed(() => this.buttonPressedMarkDone());
         
