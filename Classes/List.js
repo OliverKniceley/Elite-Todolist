@@ -92,7 +92,7 @@ class List{
     }
     
     buttonPressedAddTask(){
-        this.addTask(this.getNewTask())
+        this.addTask(getNewTask())
         //this.addTask(new Task())
         refresh();
         saveAllLists();
@@ -129,9 +129,10 @@ class List{
 
     //will need worked on a bit when we get multiple lists
     pushToLocalStorage(listID){
+        console.log("pushToLocalStorage is currently broken and has been disabled")
         //uploads the obj it to local storage under the key name of what ever is stored in listID
-        const stringObj = JSON.stringify(this)
-        localStorage.setItem(listID, stringObj);
+        //const stringObj = JSON.stringify(this)
+        //localStorage.setItem(listID, stringObj);
     }
 
     getFromLocalStorage(listId){
@@ -158,12 +159,21 @@ class List{
     }
 
     show(x) {
+        fill(255)
         // box
-        rect(x, 10, 400, 1000, 15);
+        let verticalOffsetTop = 100;
+        let verticalOffsetBottom = 125;
+
+        
+        rect(x, verticalOffsetTop, 400, windowHeight - verticalOffsetBottom, 15);
 
         //sets pos of buttons
-        this.addTaskButton.position(x + 10, 20);
-        this.deleteListButton.position(x + 310, 20);
+        this.addTaskButton.position(x + 10, verticalOffsetTop + 10);
+        this.deleteListButton.position(x + 290, verticalOffsetTop + 10);
+
+        styleButton(this.addTaskButton);
+        styleButton(this.deleteListButton); 
+
 
         //shows buttons
         this.addTaskButton.show();
@@ -173,23 +183,23 @@ class List{
         textAlign(CENTER, CENTER);
         textSize(24);
         fill(0);
-        text(this.name, x + 200, 35);
+        text(this.name, x + 200, verticalOffsetTop + 20);
         fill(255);
         textSize(12);
 
         // show all tasks in this list
         if(this.listStorage.length > 0){
             //console.log("show")
-            this.showTask()
+            this.showTask(70 + verticalOffsetTop)
         }
     
     }
 
-    showTask(){
-        let y = 70;
+    showTask(y){
+        let taskSpacing = 150;// has to be < 130
         for (let each of this.listStorage) {
             each.show(x + 10, y);
-            y += 130;
+            y += taskSpacing;
         }
         y = 70;
         for (let each of this.listStorage) {

@@ -1,10 +1,13 @@
 let listArray = [];
 let x = 10;
+let menuBar;
 // sorry i couldnt think of a better solution for spacing them out
 // well actually i probably could but minimum viable product yknow
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  menuBar = new Bar(10, 10, windowWidth -20, 75, 15, 200)
 
   let i = 0;
   while (localStorage.getItem(i.toString()) !== null) {
@@ -13,11 +16,6 @@ function setup() {
     listArray.push(list);
     i++;
   }
-
-  if(listArray.length === 0){
-    listArray.push(new List(prompt("What would you like you list to be named.")));
-  }
-
 
 
   // let list0 = new List("Groceries");
@@ -43,13 +41,9 @@ function draw() {
     each.show(x, true);
     x += 410
   }
-}
 
-// function saveAllLists(){
-//   for(let i = 0; i < listArray.length; i++){
-//     listArray[i].pushToLocalStorage(i.toString());
-//   }
-// }
+  menuBar.show();
+}
 
 
 
@@ -80,3 +74,37 @@ function refresh(){
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+
+
+
+
+
+function saveAllLists(){
+  for(let i = 0; i < listArray.length; i++){
+    listArray[i].pushToLocalStorage(i.toString());
+  }
+}
+
+
+
+function getNewTask(){
+  let name =  prompt("Input the task name.");
+  let desc = prompt("Input the tasks description.");
+  return new Task(name, desc);
+}
+
+function getNewList(){
+    let name =  prompt("Input the list name.");
+    return new List(name);
+}
+
+function styleButton(btn) {
+  btn.style("background-color", "#ffffff"); 
+  btn.style("color", "#000000");             
+  btn.style("border", "2px solid #64e6ff"); 
+  btn.style("padding", "8px 16px");
+  btn.style("border-radius", "6px");
+  btn.style("font-size", "14px");
+  btn.style("cursor", "pointer");
+}
+
