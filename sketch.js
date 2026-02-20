@@ -42,6 +42,15 @@ function draw() {
     x += 410
   }
 
+  for (let list of listArray) {
+
+    for (let task of list.listStorage) {
+      task.showTaskMenu()
+    }
+
+  }
+
+
   menuBar.show();
 }
 

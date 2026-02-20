@@ -201,11 +201,6 @@ class List{
             each.show(x + 10, y);
             y += taskSpacing;
         }
-        y = 70;
-        for (let each of this.listStorage) {
-            each.showTaskMenu()
-            y += 130;
-        }
     }
 
 }

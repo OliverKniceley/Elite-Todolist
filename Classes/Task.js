@@ -47,8 +47,8 @@ const CANCEL_X_OFFSET     = 350;
 const CANCEL_Y_OFFSET     = 10;
 
 //menu offset
-const MENU_X_OFFSET = 373
-const MENU_Y_OFFSET = 9
+const MENU_X_OFFSET = 370
+const MENU_Y_OFFSET = 6
 
 //text settings
 const TEXT_X_OFFSET       = 190;
@@ -95,6 +95,8 @@ class Task {
         this.menuButton.mousePressed(() => this.buttonPressedMenu());
 
         this.id = Math.floor(Date.now() / ((Math.random() * 10000) + 500))
+
+        this.mainBox = createDiv();
 
     }
 
@@ -176,11 +178,20 @@ class Task {
         const pos = {x: this.x, y: this.y};
 
         // main box
-        push();
-        strokeWeight(5)
-        stroke(STROKE_COLOR.getColor())
-        rect(pos.x + MENU_X_OFFSET, pos.y + MENU_Y_OFFSET, 100, 105, 10);
-        pop();
+        this.mainBox.position(pos.x + MENU_X_OFFSET, pos.y + MENU_Y_OFFSET);
+        this.mainBox.style("width: 100px");
+        this.mainBox.style("height: 105px");
+        this.mainBox.style("z-index: 2")
+        this.mainBox.style(`background-color: ${[color(this.bgColor[0],this.bgColor[1],this.bgColor[2])]}`)
+        this.mainBox.style(`border: 5px solid ${[color(STROKE_COLOR.getColor()[0],STROKE_COLOR.getColor()[1],STROKE_COLOR.getColor()[2])]}`)
+        this.mainBox.style(`border-radius: 10px`)
+        this.mainBox.show();
+
+        // push();
+        // strokeWeight(-)
+        // stroke(STROKE_COLOR.getColor())
+        // rect(pos.x + MENU_X_OFFSET, pos.y + MENU_Y_OFFSET, 100, 105, 10);
+        // pop();
 
         // sets pos of buttons        
         this.markTaskDoneButton.position(pos.x + MENU_X_OFFSET + 7, pos.y + MENU_Y_OFFSET + 7);
@@ -191,12 +202,23 @@ class Task {
         this.markTaskDoneButton.show();
         this.editTaskButton.show();
         this.deleteTaskButton.show();
+
+        //menu buttons style.
+        this.markTaskDoneButton.style('z-index', '3');
+        this.editTaskButton.style('z-index', '3');
+        this.deleteTaskButton.style('z-index', '3');
+
+        //menu buttons position style.
+        this.markTaskDoneButton.style('position', 'absolute');
+        this.editTaskButton.style('position', 'absolute');
+        this.deleteTaskButton.style('position', 'absolute');
     }
 
     hideMenuButtons(){
         this.markTaskDoneButton.hide();
         this.deleteTaskButton.hide();
         this.editTaskButton.hide();
+        this.mainBox.hide();
     }
 
     deleteTaskButtons(){
@@ -281,6 +303,14 @@ class Task {
         this.moveTaskUpButton.show();
         this.moveTaskDownButton.show();
         this.menuButton.show();
+
+        //sets button styles.
+        this.moveTaskUpButton.style('z-index', '1');
+        this.moveTaskDownButton.style('z-index', '1');
+
+        //sets button position style.
+        this.moveTaskUpButton.style('position', 'absolute');
+        this.moveTaskDownButton.style('position', 'absolute');
 
         strokeWeight(0)
         // text slop
